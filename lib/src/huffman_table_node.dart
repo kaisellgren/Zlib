@@ -6,6 +6,8 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
+part of zlib;
+
 class HuffmanTableNode {
   var e = 0; // Number of extra bits or operation.
   var b = 0; // Number of bits in this code or sub-code.
