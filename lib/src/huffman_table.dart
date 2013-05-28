@@ -6,6 +6,8 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
+part of zlib;
+
 /**
  * Represents the Huffman table.
  */
@@ -97,7 +99,7 @@ class HuffmanTable {
       pidx++;
     } while (--i > 0);
 
-    if (c[0] === n) { // null input--all zero length codes
+    if (c[0] == n) { // null input--all zero length codes
       this.root = null;
       this.m = 0;
       this.status = 0;
@@ -106,7 +108,7 @@ class HuffmanTable {
 
     // Find minimum and maximum length, bound *m by those
     for (j = 1; j <= this.BMAX; j++) {
-      if (c[j] !== 0) {
+      if (c[j] != 0) {
         break;
       }
     }
@@ -116,8 +118,8 @@ class HuffmanTable {
       mm = j;
     }
 
-    for (i = this.BMAX; i !== 0; i--) {
-      if (c[i] !== 0) {
+    for (i = this.BMAX; i != 0; i--) {
+      if (c[i] != 0) {
         break;
       }
     }
@@ -156,7 +158,7 @@ class HuffmanTable {
     p = b; pidx = 0;
     i = 0;
     do {
-      if ((j = p[pidx++]) !== 0) {
+      if ((j = p[pidx++]) != 0) {
         v[x[j]++] = i;
       }
     } while (++i < n);
@@ -252,13 +254,13 @@ class HuffmanTable {
         }
 
         // backwards increment the k-bit code i
-        for (j = 1 << (k - 1); (i & j) !== 0; j >>= 1) {
+        for (j = 1 << (k - 1); (i & j) != 0; j >>= 1) {
           i ^= j;
         }
         i ^= j;
 
         // backup over finished tables
-        while ((i & ((1 << w) - 1)) !== x[h]) {
+        while ((i & ((1 << w) - 1)) != x[h]) {
           w -= lx[h]; // don't need to update q
           h--;
         }
@@ -269,6 +271,6 @@ class HuffmanTable {
     this.m = lx[1];
 
     /* Return true (1) if we were given an incomplete table */
-    this.status = ((y !== 0 && g !== 1) ? 1 : 0);
+    this.status = ((y != 0 && g != 1) ? 1 : 0);
   }
 }

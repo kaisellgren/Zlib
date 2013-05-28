@@ -7,7 +7,7 @@ void main() {
   var inflatedBytes = inflateBytes(deflatedBytes);
 
   var file = new File('normal.jpg');
-  var raf = file.openSync(FileMode.WRITE);
-  raf.writeListSync(inflatedBytes, 0, inflatedBytes.length);
+  var raf = file.openSync(mode: FileMode.WRITE);
+  raf.writeFromSync(inflatedBytes, 0, inflatedBytes.length);
   raf.close();
 }

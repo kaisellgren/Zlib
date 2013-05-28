@@ -6,6 +6,8 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
+part of zlib;
+
 class Inflater {
   // Constant parameters.
   const WSIZE = 32768; // Sliding Window size.
@@ -103,7 +105,7 @@ class Inflater {
    * Returns `-1` if we are done.
    */
   int get nextByte {
-    if (inflateData.length === currentPosition)
+    if (inflateData.length == currentPosition)
       return -1;
 
     return inflateData[currentPosition++] & 0xff;
@@ -155,7 +157,7 @@ class Inflater {
       e = t.e;
 
       while (e > 16) {
-        if (e === 99)
+        if (e == 99)
           return -1;
 
         throwBits(t.b);
@@ -168,21 +170,21 @@ class Inflater {
       throwBits(t.b);
 
       // It's a literal.
-      if (e === 16) {
+      if (e == 16) {
         currentSlidePosition &= WSIZE - 1;
         slide[currentSlidePosition] = t.n;
         currentSlidePosition++;
         buffer.add(t.n);
         n++;
 
-        if (n === size)
+        if (n == size)
           return size;
 
         continue;
       }
 
       // End of block.
-      if (e === 15)
+      if (e == 15)
         break;
 
       // If we got this far, the block is an EOB or a length.
@@ -199,7 +201,7 @@ class Inflater {
       e = t.e;
 
       while (e > 16) {
-        if (e === 99)
+        if (e == 99)
           return -1;
 
         throwBits(t.b);
@@ -228,7 +230,7 @@ class Inflater {
         copy_dist++;
       }
 
-      if (n === size)
+      if (n == size)
         return size;
     }
 
@@ -253,7 +255,7 @@ class Inflater {
     fetchBytes(16);
 
     // Error in compressed data!
-    if (n !== ((~bitBuffer) & 0xffff))
+    if (n != ((~bitBuffer) & 0xffff))
       return -1;
 
     throwBits(16);
@@ -275,7 +277,7 @@ class Inflater {
       throwBits(8);
     }
 
-    if (copyLength === 0)
+    if (copyLength == 0)
       method = -1;
 
     return n;
@@ -310,7 +312,7 @@ class Inflater {
 
       h = new HuffmanTable(l, 288, 257, cplens, cplext, fixedBitsByLiteral);
 
-      if (h.status !== 0) {
+      if (h.status != 0) {
         print("HufBuild error: ${h.status}!");
         return -1;
       }
@@ -393,7 +395,7 @@ class Inflater {
     h = new HuffmanTable(ll, 19, 19, null, null, bitsByLiteral);
 
     // Incomplete code set.
-    if (h.status !== 0)
+    if (h.status != 0)
       return -1;
 
     huffmanTableList = h.root;
@@ -414,7 +416,7 @@ class Inflater {
       if (j < 16) {
         ll[i] = l = j; // Save last length in l.
         i++;
-      } else if (j === 16) { // Repeat last length 3 to 6 times.
+      } else if (j == 16) { // Repeat last length 3 to 6 times.
         fetchBytes(2);
         j = 3 + getBits(2);
         throwBits(2);
@@ -426,7 +428,7 @@ class Inflater {
           ll[i] = l;
           i++;
         }
-      } else if (j === 17) { // 3 to 10 zero length codes.
+      } else if (j == 17) { // 3 to 10 zero length codes.
         fetchBytes(3);
         j = 3 + getBits(3);
         throwBits(3);
@@ -462,11 +464,11 @@ class Inflater {
     h = new HuffmanTable(ll, nl, 257, cplens, cplext, bitsByLiteral);
 
     // No literals or lengths.
-    if (bitsByLiteral === 0)
+    if (bitsByLiteral == 0)
       h.status = 1;
 
     // Incomplete literal tree.
-    if (h.status !== 0 && h.status !== 1)
+    if (h.status != 0 && h.status != 1)
       return -1;
 
     huffmanTableList = h.root;
@@ -481,10 +483,10 @@ class Inflater {
     bitsByDistance = h.m;
 
     // Lengths but no distances. Incomplete distance tree.
-    if (bitsByDistance === 0 && nl > 257)
+    if (bitsByDistance == 0 && nl > 257)
       return -1;
 
-    if (h.status !== 0)
+    if (h.status != 0)
       return -1;
 
     // Decompress until an end-of-block code.
@@ -502,7 +504,7 @@ class Inflater {
         return n;
 
       if (copyLength > 0) {
-        if (method !== STORED_BLOCK) {
+        if (method != STORED_BLOCK) {
           // STATIC_TREES or DYN_TREES
           while (copyLength > 0 && n < size) {
             copyLength--;
@@ -531,21 +533,21 @@ class Inflater {
           }
 
           // We are done.
-          if (copyLength === 0)
+          if (copyLength == 0)
             method = -1;
         }
 
-        if (n === size)
+        if (n == size)
           return n;
       }
 
-      if (method === -1) {
+      if (method == -1) {
         if (eof)
           break;
 
         // Read in last block bit.
         fetchBytes(1);
-        if (getBits(1) !== 0)
+        if (getBits(1) != 0)
           eof = true;
 
         throwBits(1);
@@ -584,7 +586,7 @@ class Inflater {
           break;
       }
 
-      if (i === -1) {
+      if (i == -1) {
         if (eof)
           return 0;
 

@@ -3,6 +3,5 @@ version: 0.1.0
 description: Zlib written in pure Dart. Supports DEFLATE/INFLATE compression algorithms.
 author: Kai Sellgren <kaisellgren@gmail.com>
 homepage: http://github.com/kaisellgren/Zlib
-dependencies:
-  unittest:
-    sdk: unittest
+dev_dependencies:
+  unittest: any

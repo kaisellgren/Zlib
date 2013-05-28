@@ -6,6 +6,8 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
+part of zlib;
+
 class HuffmanTableList {
   var next;
   List list;
