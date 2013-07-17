@@ -291,7 +291,7 @@ class Inflater {
     // If first time, set up tables for fixed blocks.
     if (fixedLiteralTables == null) {
       var i;
-      var l = []; // 288 length list for huft_build (initialized below).
+      var l = new List<int>(288); // 288 length list for huft_build (initialized below).
       var h; // HuftBuild
 
       // Literal table.
