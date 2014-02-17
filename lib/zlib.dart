@@ -22,7 +22,7 @@ List<int> deflateBytes(List<int> data) => (new Deflater()).deflate(data);
 /**
  * Deflates the given string.
  */
-String deflateString(String data) => new String.fromCharCodes((new Deflater()).deflate(data.charCodes));
+String deflateString(String data) => new String.fromCharCodes((new Deflater()).deflate(data.codeUnits));
 
 /**
  * Inflates the given bytes.
@@ -32,22 +32,22 @@ List<int> inflateBytes(List<int> data) => (new Inflater()).inflate(data);
 /**
  * Inflates the given string.
  */
-String inflateString(String data) => new String.fromCharCodes((new Inflater()).inflate(data.charCodes));
+String inflateString(String data) => new String.fromCharCodes((new Inflater()).inflate(data.codeUnits));
 
 // TODO: Zlib.
 compress() {
-  throw new NotImplementedException();
+  throw new UnimplementedError();
 }
 
 decompress() {
-  throw new NotImplementedException();
+  throw new UnimplementedError();
 }
 
 // TODO: Gzip.
 gzip() {
-  throw new NotImplementedException();
+  throw new UnimplementedError();
 }
 
 gunzip() {
-  throw new NotImplementedException();
+  throw new UnimplementedError();
 }
